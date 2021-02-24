@@ -1,0 +1,2536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="28">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1462</ID>
+      <Description>"Project Genesis Utils"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1454</ID>
+          <Description>"Auto Attach Game"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+LuaCall(getAutoAttachList().add("minecraft.windows.exe"))
+
+[DISABLE]
+LuaCall(getAutoAttachList().remove("minecraft.windows.exe"))
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1463</ID>
+          <Description>"-----&gt; Compact UI Mode for Cheat Engine"</Description>
+          <LastState/>
+          <Color>000000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+LuaCall(function cycleFullCompact(sender,force) local state = not(compactmenuitem.Caption == 'Compact View Mode'); if force~=nil then state = not force end; compactmenuitem.Caption = state and 'Compact View Mode' or 'Full View Mode'; getMainForm().Splitter1.Visible = state; getMainForm().Panel4.Visible    = state; getMainForm().Panel5.Visible    = state; end; function addCompactMenu() if compactmenualreadyexists then return end; local parent = getMainForm().Menu.Items; compactmenuitem = createMenuItem(parent); parent.add(compactmenuitem); compactmenuitem.Caption = 'Compact View Mode'; compactmenuitem.OnClick = cycleFullCompact; compactmenualreadyexists = 'yes'; end; addCompactMenu(); cycleFullCompact(nil,true))
+
+[DISABLE]
+LuaCall(cycleFullCompact(nil,false))
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Combat"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Rapid Hit"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(RAPIDHIT,Minecraft.Windows.exe,41 80 38 00 74 76) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+CCBFE0)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  cmp byte ptr [r8],00
+  jne Minecraft.Windows.exe+CCC05C
+  jmp return
+
+RAPIDHIT:
+  jmp newmem
+  nop
+return:
+registersymbol(RAPIDHIT)
+
+[DISABLE]
+
+RAPIDHIT:
+  db 41 80 38 00 74 76
+
+unregistersymbol(RAPIDHIT)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"Hitbox Width"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(hbwidthval,5)
+registersymbol(hbwidthval)
+
+hbwidthval:
+dd (float)0.6
+
+aobscanmodule(HBWIDTH,Minecraft.Windows.exe,F3 0F 10 81 04 0E 00 00 C3) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E9C810)
+
+label(code)
+label(return)
+
+newmem:
+movss xmm0,[rcx+00000E04]
+jmp code
+
+code:
+  push eax
+  mov eax,[hbwidthval]
+  mov [rcx+00000E04],eax
+  pop eax
+  jmp return
+
+HBWIDTH:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(HBWIDTH)
+
+[DISABLE]
+
+HBWIDTH:
+  db F3 0F 10 81 04 0E 00 00
+
+unregistersymbol(hbwidthval)
+dealloc(hbwidthval)
+unregistersymbol(HBWIDTH)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>11</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.6:Default
+6:Medium
+12:Large
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>hbwidthval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>16</ID>
+          <Description>"Hitbox Height"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(hbheightval,5)
+registersymbol(hbheightval)
+
+hbheightval:
+dd (float)1.8
+
+aobscanmodule(HBHEIGHT,Minecraft.Windows.exe,F3 0F 10 93 08 0E 00 00 F3 0F 10) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E91BE8)
+
+label(code)
+label(return)
+
+newmem:
+movss xmm2,[rbx+00000E08]
+jmp code
+
+code:
+  push eax
+  mov eax,[hbheightval]
+  mov [rbx+00000E08],eax
+  pop eax
+  jmp return
+
+HBHEIGHT:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(HBHEIGHT)
+
+[DISABLE]
+
+HBHEIGHT:
+  db F3 0F 10 93 08 0E 00 00
+
+unregistersymbol(hbheightval)
+dealloc(hbheightval)
+unregistersymbol(HBHEIGHT)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>17</ID>
+              <Description>"Value"</Description>
+              <DropDownList>1.8:Default
+2:Perfect
+6:Medium
+12:Large
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>hbheightval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"Movement"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>21</ID>
+          <Description>"AirJump"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(AIRJUMP,Minecraft.Windows.exe,44 88 83 68 01 00 00) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E932E3)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rbx+00000168],1
+  jmp return
+
+AIRJUMP:
+  jmp newmem
+  nop
+  nop
+return:
+registersymbol(AIRJUMP)
+
+[DISABLE]
+
+AIRJUMP:
+  db 44 88 83 68 01 00 00
+
+unregistersymbol(AIRJUMP)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Minecraft.Windows.exe"+E932E3
+
+"Minecraft.Windows.exe"+E932C4: 72 15                    -  jb Minecraft.Windows.exe+E932DB
+"Minecraft.Windows.exe"+E932C6: 80 BB 68 01 00 00 00     -  cmp byte ptr [rbx+00000168],00
+"Minecraft.Windows.exe"+E932CD: 74 11                    -  je Minecraft.Windows.exe+E932E0
+"Minecraft.Windows.exe"+E932CF: 45 0F 2E FC              -  ucomiss xmm15,xmm12
+"Minecraft.Windows.exe"+E932D3: 75 0B                    -  jne Minecraft.Windows.exe+E932E0
+"Minecraft.Windows.exe"+E932D5: 45 0F 2E F9              -  ucomiss xmm15,xmm9
+"Minecraft.Windows.exe"+E932D9: 75 05                    -  jne Minecraft.Windows.exe+E932E0
+"Minecraft.Windows.exe"+E932DB: 41 B0 01                 -  mov r8l,01
+"Minecraft.Windows.exe"+E932DE: EB 03                    -  jmp Minecraft.Windows.exe+E932E3
+"Minecraft.Windows.exe"+E932E0: 45 32 C0                 -  xor r8l,r8l
+// ---------- INJECTING HERE ----------
+"Minecraft.Windows.exe"+E932E3: 44 88 83 68 01 00 00     -  mov [rbx+00000168],r8l
+// ---------- DONE INJECTING  ----------
+"Minecraft.Windows.exe"+E932EA: 84 C9                    -  test cl,cl
+"Minecraft.Windows.exe"+E932EC: 75 04                    -  jne Minecraft.Windows.exe+E932F2
+"Minecraft.Windows.exe"+E932EE: 84 C0                    -  test al,al
+"Minecraft.Windows.exe"+E932F0: 74 02                    -  je Minecraft.Windows.exe+E932F4
+"Minecraft.Windows.exe"+E932F2: B0 01                    -  mov al,01
+"Minecraft.Windows.exe"+E932F4: 88 83 6C 01 00 00        -  mov [rbx+0000016C],al
+"Minecraft.Windows.exe"+E932FA: 48 8B 03                 -  mov rax,[rbx]
+"Minecraft.Windows.exe"+E932FD: 41 0F 28 CC              -  movaps xmm1,xmm12
+"Minecraft.Windows.exe"+E93301: 48 8B CB                 -  mov rcx,rbx
+"Minecraft.Windows.exe"+E93304: FF 90 30 05 00 00        -  call qword ptr [rax+00000530]
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"Air Jump 2"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(AIRJUMP2,Minecraft.Windows.exe,80 BB 68 01 00 00 00 74 08) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+732A4F)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov byte ptr [rbx+00000168],1
+  jmp return
+
+AIRJUMP2:
+  jmp newmem
+  nop
+  nop
+return:
+registersymbol(AIRJUMP2)
+
+[DISABLE]
+
+AIRJUMP2:
+  db 80 BB 68 01 00 00 00
+
+unregistersymbol(AIRJUMP2)
+dealloc(newmem)
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>24</ID>
+          <Description>"Speed"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(speedval,5)
+registersymbol(speedval)
+
+speedval:
+dd (float)0.1000000015
+
+aobscanmodule(SPEED,Minecraft.Windows.exe,F3 0F 10 8F 84 00 00 00 48 8B) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+104BDD4)
+
+label(code)
+label(return)
+
+newmem:
+movss xmm1,[rdi+00000084]
+jmp code
+
+code:
+  push eax
+  mov eax,[speedval]
+  mov [rdi+00000084],eax
+  pop eax
+  jmp return
+
+SPEED:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(SPEED)
+
+[DISABLE]
+
+SPEED:
+  db F3 0F 10 8F 84 00 00 00
+
+unregistersymbol(speedval)
+dealloc(speedval)
+unregistersymbol(SPEED)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>25</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.1000000015:Default
+0.1299999952:Sprinting
+0.5:X0.1
+1:X1
+2:X2
+5:X5
+10:X10
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>speedval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>44</ID>
+          <Description>"NoDownGlide"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(glideval,5)
+registersymbol(glideval)
+
+aobscanmodule(NODOWNGLIDE,Minecraft.Windows.exe,F3 0F 10 82 10 0E 00 00 F3) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+A0DC8D)
+
+label(code)
+label(return)
+
+newmem:
+movss xmm0,[rdx+00000E10]
+jmp code
+
+code:
+  push eax
+  mov eax,[glideval]
+  mov [rdx+00000E10],eax
+  pop eax
+  jmp return
+
+NODOWNGLIDE:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(NODOWNGLIDE)
+
+[DISABLE]
+
+NODOWNGLIDE:
+  db F3 0F 10 82 10 0E 00 00
+
+unregistersymbol(glideval)
+dealloc(glideval)
+unregistersymbol(NODOWNGLIDE)
+dealloc(newmem)
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>45</ID>
+              <Description>"Value"</Description>
+              <DropDownList>-1:Glide
+0:NoDownGlide
+1:UpGlide
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>glideval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>51</ID>
+          <Description>"Fast Up Ladder"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(fastupladderval,5)
+registersymbol(fastupladderval)
+
+fastupladderval:
+dd (float)0.2
+
+aobscanmodule(FASTUPLADDER,Minecraft.Windows.exe,C7 81 10 0E 00 00 CD CC 4C 3E) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+1024180)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push eax
+  mov eax,[fastupladderval]
+  mov [rcx+00000E10],eax
+  pop eax
+  jmp return
+
+FASTUPLADDER:
+  jmp newmem
+  nop
+  nop
+  nop
+  nop
+  nop
+return:
+registersymbol(FASTUPLADDER)
+
+[DISABLE]
+
+FASTUPLADDER:
+  db C7 81 10 0E 00 00 CD CC 4C 3E
+
+unregistersymbol(fastupladderval)
+dealloc(fastupladderval)
+unregistersymbol(FASTUPLADDER)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>52</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.2:Default
+0.6:Fast
+1:Very Fast
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>fastupladderval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53</ID>
+          <Description>"Fast Down Ladder"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(fastdownladderval,5)
+registersymbol(fastdownladderval)
+
+fastdownladderval:
+dd (float)-0.2
+
+aobscanmodule(FASTDOWNLADDER,Minecraft.Windows.exe,C7 87 10 0E 00 00 CD CC 4C BE) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+101A198)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push eax
+  mov eax,[fastdownladderval]
+  mov [rdi+00000E10],eax
+  pop eax
+  jmp return
+
+FASTDOWNLADDER:
+  jmp newmem
+  nop
+  nop
+  nop
+  nop
+  nop
+return:
+registersymbol(FASTDOWNLADDER)
+
+[DISABLE]
+
+FASTDOWNLADDER:
+  db C7 87 10 0E 00 00 CD CC 4C BE
+
+unregistersymbol(fastdownladderval)
+dealloc(fastdownladderval)
+unregistersymbol(FASTDOWNLADDER)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>54</ID>
+              <Description>"Value"</Description>
+              <DropDownList>-0.2:Default
+-0.6:Fast
+-1:Very Fast
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>fastdownladderval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>57</ID>
+          <Description>"Step Assist"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(stepassistval,5)
+registersymbol(stepassistval)
+
+stepassistval:
+dd (float)2
+
+aobscanmodule(STEPASSIST,Minecraft.Windows.exe,F3 44 0F 10 9B 00 02 00 00) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E92B23)
+
+label(code)
+label(return)
+
+newmem:
+movss xmm11,[rbx+00000200]
+jmp code
+
+code:
+  push eax
+  mov eax,[stepassistval]
+  mov [rbx+00000200],eax
+  pop eax
+  jmp return
+
+STEPASSIST:
+  jmp newmem
+  nop
+  nop
+  nop
+  nop
+return:
+registersymbol(STEPASSIST)
+
+[DISABLE]
+
+STEPASSIST:
+  db F3 44 0F 10 9B 00 02 00 00
+
+unregistersymbol(stepassistval)
+dealloc(stepassistval)
+unregistersymbol(STEPASSIST)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>58</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.5625:Default
+2:Step Assist
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>stepassistval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>60</ID>
+          <Description>"High Jump"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(highjumpval,5)
+registersymbol(highjumpval)
+
+highjumpval:
+dd (float)0.4
+
+aobscanmodule(HIGHJUMP,Minecraft.Windows.exe,F3 0F 11 8F 10 0E 00 00 4C 8B 8F) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+101D7CF)
+
+label(code)
+label(return)
+
+newmem:
+movss [rdi+00000E10],xmm1
+jmp code
+
+code:
+  push eax
+  mov eax,[highjumpval]
+  mov [rdi+00000E10],eax
+  pop eax
+  jmp return
+
+HIGHJUMP:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(HIGHJUMP)
+
+[DISABLE]
+
+HIGHJUMP:
+  db F3 0F 11 8F 10 0E 00 00
+
+unregistersymbol(highjumpval)
+dealloc(highjumpval)
+unregistersymbol(HIGHJUMP)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>61</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.4:Default
+0.7:High
+1:Very High
+2:Extremely High
+5:Mega High
+10:Super High
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>highjumpval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>63</ID>
+          <Description>"Air Acceleration Speed"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(airaccspeedval,5)
+registersymbol(airaccspeedval)
+
+airaccspeedval:
+dd (float)0.01999999955
+
+aobscanmodule(AIRACCSPEED,Minecraft.Windows.exe,C7 83 5C 12 00 00 0A D7 A3 3C) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+104BD9F)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push eax
+  mov eax,[airaccspeedval]
+  mov [rbx+0000125C],eax
+  pop eax
+  jmp return
+
+AIRACCSPEED:
+  jmp newmem
+  nop
+  nop
+  nop
+  nop
+  nop
+return:
+registersymbol(AIRACCSPEED)
+
+[DISABLE]
+
+AIRACCSPEED:
+  db C7 83 5C 12 00 00 0A D7 A3 3C
+
+unregistersymbol(airaccspeedval)
+dealloc(airaccspeedval)
+unregistersymbol(AIRACCSPEED)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>64</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.01999999955:Default
+0.03:0.03
+0.05:0.05
+0.1:0.1
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>airaccspeedval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>67</ID>
+          <Description>"Phase"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(phaseval,5)
+registersymbol(phaseval)
+
+alloc(phasetoggle,5)
+registersymbol(phasetoggle)
+
+phaseval:
+dq (float)1.8
+
+phasetoggle:
+dd 1
+
+aobscanmodule(PHASE,Minecraft.Windows.exe,F3 0F 11 A1 F8 0D 00 00) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+EAA46F)
+
+label(code)
+label(return)
+label(off)
+
+newmem:
+cmp [phasetoggle],1
+je code
+jne off
+
+code:
+  movss [rcx+00000DF8],xmm1
+  jmp return
+
+off:
+  addss xmm1,[phaseval]
+  movss [rcx+00000DF8],xmm1
+  subss xmm1,[phaseval]
+  jmp return
+
+PHASE:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(PHASE)
+
+[DISABLE]
+
+PHASE:
+  db F3 0F 11 A1 F8 0D 00 00
+
+unregistersymbol(phasetoggle)
+dealloc(phasetoggle)
+unregistersymbol(phaseval)
+dealloc(phaseval)
+unregistersymbol(PHASE)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>69</ID>
+              <Description>"Toggle"</Description>
+              <DropDownList>0:OFF
+1:ON
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>phasetoggle</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>70</ID>
+          <Description>"NoSlowDown"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(NOSLOWDOWN,Minecraft.Windows.exe,F3 0F 11 46 0C 33) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+AAB509)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+NOSLOWDOWN:
+  jmp newmem
+return:
+registersymbol(NOSLOWDOWN)
+
+[DISABLE]
+
+NOSLOWDOWN:
+  db F3 0F 11 46 0C
+
+unregistersymbol(NOSLOWDOWN)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>72</ID>
+          <Description>"AutoSprint"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(AUTOSPRINT,Minecraft.Windows.exe,F3 0F 10 57 0C 48) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+733CB4)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+0C],0
+  jmp return
+
+AUTOSPRINT:
+  jmp newmem
+return:
+registersymbol(AUTOSPRINT)
+
+[DISABLE]
+
+AUTOSPRINT:
+  db F3 0F 10 57 0C
+
+unregistersymbol(AUTOSPRINT)
+dealloc(newmem)
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>76</ID>
+          <Description>"AntiWeb"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(ANTIWEB,Minecraft.Windows.exe,F3 0F 11 89 18 02 00 00 C7 81 78 01 00 00 00 00 00 00 C3 CC CC CC CC CC CC CC CC 48) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E942C5)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+ANTIWEB:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(ANTIWEB)
+
+[DISABLE]
+
+ANTIWEB:
+  db F3 0F 11 89 18 02 00 00
+
+unregistersymbol(ANTIWEB)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>81</ID>
+          <Description>"AntiWater"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(ANTIWATER,Minecraft.Windows.exe,C6 83 1D 02 00 00 01 EB) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+EA5CBE)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+ANTIWATER:
+  jmp newmem
+  nop
+  nop
+return:
+registersymbol(ANTIWATER)
+
+[DISABLE]
+
+ANTIWATER:
+  db C6 83 1D 02 00 00 01
+
+unregistersymbol(ANTIWATER)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Minecraft.Windows.exe"+EA5CBE
+
+"Minecraft.Windows.exe"+EA5C8B: 80 BB 64 02 00 00 00     -  cmp byte ptr [rbx+00000264],00
+"Minecraft.Windows.exe"+EA5C92: 75 0C                    -  jne Minecraft.Windows.exe+EA5CA0
+"Minecraft.Windows.exe"+EA5C94: 48 8B 03                 -  mov rax,[rbx]
+"Minecraft.Windows.exe"+EA5C97: 48 8B CB                 -  mov rcx,rbx
+"Minecraft.Windows.exe"+EA5C9A: FF 90 88 07 00 00        -  call qword ptr [rax+00000788]
+"Minecraft.Windows.exe"+EA5CA0: 44 89 B3 78 01 00 00     -  mov [rbx+00000178],r14d
+"Minecraft.Windows.exe"+EA5CA7: 44 89 B3 7C 02 00 00     -  mov [rbx+0000027C],r14d
+"Minecraft.Windows.exe"+EA5CAE: 80 BB 1D 02 00 00 00     -  cmp byte ptr [rbx+0000021D],00
+"Minecraft.Windows.exe"+EA5CB5: 75 07                    -  jne Minecraft.Windows.exe+EA5CBE
+"Minecraft.Windows.exe"+EA5CB7: C6 83 1E 02 00 00 01     -  mov byte ptr [rbx+0000021E],01
+// ---------- INJECTING HERE ----------
+"Minecraft.Windows.exe"+EA5CBE: C6 83 1D 02 00 00 01     -  mov byte ptr [rbx+0000021D],01
+// ---------- DONE INJECTING  ----------
+"Minecraft.Windows.exe"+EA5CC5: EB 07                    -  jmp Minecraft.Windows.exe+EA5CCE
+"Minecraft.Windows.exe"+EA5CC7: C6 83 1D 02 00 00 00     -  mov byte ptr [rbx+0000021D],00
+"Minecraft.Windows.exe"+EA5CCE: 48 8B BB F8 0C 00 00     -  mov rdi,[rbx+00000CF8]
+"Minecraft.Windows.exe"+EA5CD5: F3 0F 10 93 28 02 00 00  -  movss xmm2,[rbx+00000228]
+"Minecraft.Windows.exe"+EA5CDD: F3 0F 58 93 18 0E 00 00  -  addss xmm2,dword ptr [rbx+00000E18]
+"Minecraft.Windows.exe"+EA5CE5: F3 0F 10 8B 2C 02 00 00  -  movss xmm1,[rbx+0000022C]
+"Minecraft.Windows.exe"+EA5CED: F3 0F 58 8B 1C 0E 00 00  -  addss xmm1,dword ptr [rbx+00000E1C]
+"Minecraft.Windows.exe"+EA5CF5: F3 0F 2C CA              -  cvttss2si ecx,xmm2
+"Minecraft.Windows.exe"+EA5CF9: 81 F9 00 00 00 80        -  cmp ecx,80000000
+"Minecraft.Windows.exe"+EA5CFF: 74 1E                    -  je Minecraft.Windows.exe+EA5D1F
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>83</ID>
+          <Description>"Jesus"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(jesusval,5)
+registersymbol(jesusval)
+
+jesusval:
+dd (float)0.2
+
+aobscanmodule(JESUS,Minecraft.Windows.exe,F3 0F 11 8F 10 0E 00 00 40) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+1019B97)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push eax
+  mov eax,[jesusval]
+  mov [rdi+00000E10],eax
+  pop eax
+  jmp return
+
+JESUS:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(JESUS)
+
+[DISABLE]
+
+JESUS:
+  db F3 0F 11 8F 10 0E 00 00
+
+unregistersymbol(jesusval)
+dealloc(jesusval)
+unregistersymbol(JESUS)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>84</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.2:0.2
+0.4:0.4
+0.6:0.6
+0.8:0.8
+1:1
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>jesusval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1517</ID>
+          <Description>"Spider"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(spiderboost,5)
+registersymbol(spiderboost)
+
+spiderboost:
+dd (float)0.2
+
+aobscanmodule(SPIDER,Minecraft.Windows.exe,F3 0F 11 B3 10 0E 00 00 0F 28 74 24 50) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E992E3)
+
+label(code)
+label(return)
+label(check2)
+label(check3)
+label(boost)
+
+newmem:
+
+code:
+  movss [rbx+00000E10],xmm6
+  cmp [rbx+168],01000101
+  jne check2
+  jmp return
+
+check2:
+  cmp [rbx+168],01010101
+  je boost
+  jne check3
+
+check3:
+  cmp [rbx+168],00010000
+  je boost
+  jmp return
+
+boost:
+  push eax
+  mov eax,[spiderboost]
+  mov [rbx+00000E10],eax
+  pop eax
+  jmp return
+
+SPIDER:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(SPIDER)
+
+[DISABLE]
+
+SPIDER:
+  db F3 0F 11 B3 10 0E 00 00
+
+unregistersymbol(spiderboost)
+dealloc(spiderboost)
+unregistersymbol(SPIDER)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1521</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.2:0.2
+0.4:0.4
+0.6:0.6
+0.8:0.8
+1:1
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>spiderboost</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1519</ID>
+          <Description>"BHOP"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(bhopval,5)
+registersymbol(bhopval)
+
+bhopval:
+dd (float)0.2
+
+aobscanmodule(BHOP,Minecraft.Windows.exe,C7 82 10 0E 00 00 00 00 00 00) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+1243E90)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push eax
+  mov eax,[bhopval]
+  mov [rdx+00000E10],eax
+  pop eax
+  jmp return
+
+BHOP:
+  jmp newmem
+  nop
+  nop
+  nop
+  nop
+  nop
+return:
+registersymbol(BHOP)
+
+[DISABLE]
+
+BHOP:
+  db C7 82 10 0E 00 00 00 00 00 00
+
+unregistersymbol(bhopval)
+dealloc(bhopval)
+unregistersymbol(BHOP)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1520</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0.2:0.2
+0.4:0.4
+0.6:0.6
+0.8:0.8
+1:1
+</DropDownList>
+              <VariableType>Float</VariableType>
+              <Address>bhopval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>46</ID>
+          <Description>"Velocity Speed"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(maxticks,5)
+registersymbol(maxticks)
+
+alloc(speedtimer,5)
+registersymbol(speedtimer)
+
+alloc(velspeed,5)
+registersymbol(velspeed)
+
+maxticks:
+dd 6
+
+velspeed:
+dd (float)2
+
+aobscanmodule(VELOCITYSPEED,Minecraft.Windows.exe,F3 0F 11 B3 10 0E 00 00 0F 28 74 24 50) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E992E3)
+
+label(code)
+label(return)
+label(mult)
+
+newmem:
+
+code:
+  add [speedtimer],1
+  movss [rbx+00000E10],xmm6
+  push eax
+  mov eax,[maxticks]
+  cmp [speedtimer],eax
+  pop eax
+  ja mult
+  jmp return
+
+mult:
+  mov [speedtimer],0
+  mulss xmm2,[velspeed]
+  mulss xmm3,[velspeed]
+  movss [rbx+00000E0C],xmm2
+  movss [rbx+00000E14],xmm3
+  jmp return
+
+VELOCITYSPEED:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(VELOCITYSPEED)
+
+[DISABLE]
+
+VELOCITYSPEED:
+  db F3 0F 11 B3 10 0E 00 00
+
+unregistersymbol(maxticks)
+dealloc(maxticks)
+unregistersymbol(speedtimer)
+dealloc(speedtimer)
+unregistersymbol(velspeed)
+dealloc(velspeed)
+unregistersymbol(VELOCITYSPEED)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>47</ID>
+              <Description>"Counter"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>speedtimer</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>48</ID>
+              <Description>"Max Ticks"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>maxticks</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>49</ID>
+              <Description>"Boost Value"</Description>
+              <VariableType>Float</VariableType>
+              <Address>velspeed</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"Player"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1525</ID>
+          <Description>"AntiKnockBack"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(ANTIKB_X,Minecraft.Windows.exe,89 81 0C 0E 00 00 8B 42) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E9CA92)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+ANTIKB_X:
+  jmp newmem
+  nop
+return:
+registersymbol(ANTIKB_X)
+
+////////////////////
+
+aobscanmodule(ANTIKB_Y,Minecraft.Windows.exe,89 81 10 0E 00 00 8B 42 08 89 81 14 0E 00 00 C3) // should be unique
+alloc(newmems,$1000,"Minecraft.Windows.exe"+E9CA9B)
+
+label(codes)
+label(returns)
+
+newmems:
+
+codes:
+  nop
+  jmp returns
+
+ANTIKB_Y:
+  jmp newmems
+  nop
+returns:
+registersymbol(ANTIKB_Y)
+
+////////////////////
+
+aobscanmodule(ANTIKB_Z,Minecraft.Windows.exe,89 81 14 0E 00 00 C3 CC CC CC CC CC 48) // should be unique
+alloc(newmemss,$1000,"Minecraft.Windows.exe"+E9CAA4)
+
+label(codess)
+label(returnss)
+
+newmemss:
+
+codess:
+  nop
+  jmp returnss
+
+ANTIKB_Z:
+  jmp newmemss
+  nop
+returnss:
+registersymbol(ANTIKB_Z)
+
+[DISABLE]
+
+ANTIKB_X:
+  db 89 81 0C 0E 00 00
+
+unregistersymbol(ANTIKB_X)
+dealloc(newmem)
+
+ANTIKB_Y:
+  db 89 81 10 0E 00 00
+
+unregistersymbol(ANTIKB_Y)
+dealloc(newmems)
+
+ANTIKB_Z:
+  db 89 81 14 0E 00 00
+
+unregistersymbol(ANTIKB_Z)
+dealloc(newmemss)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1529</ID>
+          <Description>"Scaffold"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(SCAFFOLD,Minecraft.Windows.exe,88 86 34 06 00 00 8B 85 B0) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+4945DC)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+SCAFFOLD:
+  jmp newmem
+  nop
+return:
+registersymbol(SCAFFOLD)
+
+[DISABLE]
+
+SCAFFOLD:
+  db 88 86 34 06 00 00
+
+unregistersymbol(SCAFFOLD)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1530</ID>
+          <Description>"Coordinates"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 1.12.0
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(COORDINATES,Minecraft.Windows.exe,80 78 04 00 74 07) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+4C02B7)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //cmp byte ptr [rax+04],00
+  //je Minecraft.Windows.exe+4C02C4
+  nop
+  jmp return
+
+COORDINATES:
+  jmp newmem
+  nop
+return:
+registersymbol(COORDINATES)
+
+[DISABLE]
+
+COORDINATES:
+  db 80 78 04 00 74 07
+
+unregistersymbol(COORDINATES)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1531</ID>
+          <Description>"Gamemode"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-11
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+alloc(gmval,5)
+registersymbol(gmval)
+
+gmval:
+dd 1
+
+aobscanmodule(GAMEMODE,Minecraft.Windows.exe,8B 81 B4 1B 00 00 83 F8 01 74 2F) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+1048690)
+
+label(code)
+label(return)
+
+newmem:
+mov eax,[rcx+00001BB4]
+jmp code
+
+code:
+  push eax
+  mov eax,[gmval]
+  mov [rcx+00001BB4],eax
+  pop eax
+  jmp return
+
+GAMEMODE:
+  jmp newmem
+  nop
+return:
+registersymbol(GAMEMODE)
+
+[DISABLE]
+
+GAMEMODE:
+  db 8B 81 B4 1B 00 00
+
+unregistersymbol(gmval)
+dealloc(gmval)
+unregistersymbol(GAMEMODE)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1532</ID>
+              <Description>"Value"</Description>
+              <DropDownList>0:Survival
+1:Creative
+2:Adventure
+5:Default
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>gmval</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1533</ID>
+          <Description>"Vanilla NoFall"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-19
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(NOFALL,Minecraft.Windows.exe,F3 0F 10 83 78 01 00 00 F3 0F 5C) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+E99060)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  nop
+  jmp return
+
+NOFALL:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(NOFALL)
+
+[DISABLE]
+
+NOFALL:
+  db F3 0F 10 83 78 01 00 00
+
+unregistersymbol(NOFALL)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Minecraft.Windows.exe"+E99060
+
+"Minecraft.Windows.exe"+E99045: 48 83 C4 60                    -  add rsp,60
+"Minecraft.Windows.exe"+E99049: 5F                             -  pop rdi
+"Minecraft.Windows.exe"+E9904A: C3                             -  ret 
+"Minecraft.Windows.exe"+E9904B: 45 33 C9                       -  xor r9d,r9d
+"Minecraft.Windows.exe"+E9904E: 41 B0 26                       -  mov r8l,26
+"Minecraft.Windows.exe"+E99051: 48 8B D3                       -  mov rdx,rbx
+"Minecraft.Windows.exe"+E99054: E8 77 D8 4F 00                 -  call Minecraft.Windows.exe+13968D0
+"Minecraft.Windows.exe"+E99059: EB C9                          -  jmp Minecraft.Windows.exe+E99024
+"Minecraft.Windows.exe"+E9905B: 0F 2F F0                       -  comiss xmm6,xmm0
+"Minecraft.Windows.exe"+E9905E: 73 C4                          -  jae Minecraft.Windows.exe+E99024
+// ---------- INJECTING HERE ----------
+"Minecraft.Windows.exe"+E99060: F3 0F 10 83 78 01 00 00        -  movss xmm0,[rbx+00000178]
+// ---------- DONE INJECTING  ----------
+"Minecraft.Windows.exe"+E99068: F3 0F 5C C6                    -  subss xmm0,xmm6
+"Minecraft.Windows.exe"+E9906C: F3 0F 11 83 78 01 00 00        -  movss [rbx+00000178],xmm0
+"Minecraft.Windows.exe"+E99074: EB B8                          -  jmp Minecraft.Windows.exe+E9902E
+"Minecraft.Windows.exe"+E99076: CC                             -  int 3 
+"Minecraft.Windows.exe"+E99077: CC                             -  int 3 
+"Minecraft.Windows.exe"+E99078: CC                             -  int 3 
+"Minecraft.Windows.exe"+E99079: CC                             -  int 3 
+"Minecraft.Windows.exe"+E9907A: CC                             -  int 3 
+"Minecraft.Windows.exe"+E9907B: CC                             -  int 3 
+"Minecraft.Windows.exe"+E9907C: CC                             -  int 3 
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1536</ID>
+          <Description>"Packet No Fall"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-20
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(PACKETNOFALL,Minecraft.Windows.exe,0F B6 86 68 01 00 00) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+72FC1F)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //movzx eax,byte ptr [rsi+00000168]
+  nop
+  jmp return
+
+PACKETNOFALL:
+  jmp newmem
+  nop
+  nop
+return:
+registersymbol(PACKETNOFALL)
+
+[DISABLE]
+
+PACKETNOFALL:
+  db 0F B6 86 68 01 00 00
+
+unregistersymbol(PACKETNOFALL)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Minecraft.Windows.exe"+72FC1F
+
+"Minecraft.Windows.exe"+72FBF4: FF 50 50                 -  call qword ptr [rax+50]
+"Minecraft.Windows.exe"+72FBF7: F2 0F 10 00              -  movsd xmm0,[rax]
+"Minecraft.Windows.exe"+72FBFB: F2 0F 11 47 28           -  movsd [rdi+28],xmm0
+"Minecraft.Windows.exe"+72FC00: 8B 40 08                 -  mov eax,[rax+08]
+"Minecraft.Windows.exe"+72FC03: 89 47 30                 -  mov [rdi+30],eax
+"Minecraft.Windows.exe"+72FC06: F2 0F 10 86 E0 00 00 00  -  movsd xmm0,[rsi+000000E0]
+"Minecraft.Windows.exe"+72FC0E: F2 0F 11 47 34           -  movsd [rdi+34],xmm0
+"Minecraft.Windows.exe"+72FC13: 8B 86 D0 11 00 00        -  mov eax,[rsi+000011D0]
+"Minecraft.Windows.exe"+72FC19: 89 47 3C                 -  mov [rdi+3C],eax
+"Minecraft.Windows.exe"+72FC1C: 88 5F 40                 -  mov [rdi+40],bl
+// ---------- INJECTING HERE ----------
+"Minecraft.Windows.exe"+72FC1F: 0F B6 86 68 01 00 00     -  movzx eax,byte ptr [rsi+00000168]
+// ---------- DONE INJECTING  ----------
+"Minecraft.Windows.exe"+72FC26: 88 47 41                 -  mov [rdi+41],al
+"Minecraft.Windows.exe"+72FC29: 48 83 BE E0 02 00 00 FF  -  cmp qword ptr [rsi+000002E0],-01
+"Minecraft.Windows.exe"+72FC31: 74 28                    -  je Minecraft.Windows.exe+72FC5B
+"Minecraft.Windows.exe"+72FC33: 45 33 C0                 -  xor r8d,r8d
+"Minecraft.Windows.exe"+72FC36: 48 8B 96 E0 02 00 00     -  mov rdx,[rsi+000002E0]
+"Minecraft.Windows.exe"+72FC3D: 48 8B 8E 08 0D 00 00     -  mov rcx,[rsi+00000D08]
+"Minecraft.Windows.exe"+72FC44: E8 F7 4E C6 00           -  call Minecraft.Windows.exe+1394B40
+"Minecraft.Windows.exe"+72FC49: 48 85 C0                 -  test rax,rax
+"Minecraft.Windows.exe"+72FC4C: 74 0D                    -  je Minecraft.Windows.exe+72FC5B
+"Minecraft.Windows.exe"+72FC4E: 48 8B 80 88 0E 00 00     -  mov rax,[rax+00000E88]
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1547</ID>
+          <Description>"Gamemode Pointer"</Description>
+          <LastState Value="0" RealAddress="25B294ECE04"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>1BB4</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"Other"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1538</ID>
+          <Description>"No Packet (1.12.0)"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-25
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(NOPACKET,Minecraft.Windows.exe,48 3B 41 40 75 57) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+C4FDC8)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //cmp rax,[rcx+40]
+  //jne Minecraft.Windows.exe+C4FE25
+  nop
+  jmp return
+
+NOPACKET:
+  jmp newmem
+  nop
+return:
+registersymbol(NOPACKET)
+
+[DISABLE]
+
+NOPACKET:
+  db 48 3B 41 40 75 57
+
+unregistersymbol(NOPACKET)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Minecraft.Windows.exe"+C4FDC8
+
+"Minecraft.Windows.exe"+C4FDA6: 48 8B 41 18                    -  mov rax,[rcx+18]
+"Minecraft.Windows.exe"+C4FDAA: 48 8B F2                       -  mov rsi,rdx
+"Minecraft.Windows.exe"+C4FDAD: 80 B8 31 03 00 00 00           -  cmp byte ptr [rax+00000331],00
+"Minecraft.Windows.exe"+C4FDB4: 74 0E                          -  je Minecraft.Windows.exe+C4FDC4
+"Minecraft.Windows.exe"+C4FDB6: E8 D5 00 00 00                 -  call Minecraft.Windows.exe+C4FE90
+"Minecraft.Windows.exe"+C4FDBB: 48 8B C6                       -  mov rax,rsi
+"Minecraft.Windows.exe"+C4FDBE: 48 83 C4 20                    -  add rsp,20
+"Minecraft.Windows.exe"+C4FDC2: 5E                             -  pop rsi
+"Minecraft.Windows.exe"+C4FDC3: C3                             -  ret 
+"Minecraft.Windows.exe"+C4FDC4: 48 8B 41 38                    -  mov rax,[rcx+38]
+// ---------- INJECTING HERE ----------
+"Minecraft.Windows.exe"+C4FDC8: 48 3B 41 40                    -  cmp rax,[rcx+40]
+"Minecraft.Windows.exe"+C4FDCC: 75 57                          -  jne Minecraft.Windows.exe+C4FE25
+// ---------- DONE INJECTING  ----------
+"Minecraft.Windows.exe"+C4FDCE: 0F 10 05 BB 7C 6F 01           -  movups xmm0,[Minecraft.Windows.exe+2347A90]
+"Minecraft.Windows.exe"+C4FDD5: 48 89 5C 24 30                 -  mov [rsp+30],rbx
+"Minecraft.Windows.exe"+C4FDDA: 48 8D 4A 10                    -  lea rcx,[rdx+10]
+"Minecraft.Windows.exe"+C4FDDE: 48 8B 1D AB 7C 6F 01           -  mov rbx,[Minecraft.Windows.exe+2347A90]
+"Minecraft.Windows.exe"+C4FDE5: 41 B8 80 00 00 00              -  mov r8d,00000080
+"Minecraft.Windows.exe"+C4FDEB: 48 89 7C 24 38                 -  mov [rsp+38],rdi
+"Minecraft.Windows.exe"+C4FDF0: 0F B7 3D A1 7C 6F 01           -  movzx edi,word ptr [Minecraft.Windows.exe+2347A98]
+"Minecraft.Windows.exe"+C4FDF7: 0F 29 02                       -  movaps [rdx],xmm0
+"Minecraft.Windows.exe"+C4FDFA: 33 D2                          -  xor edx,edx
+"Minecraft.Windows.exe"+C4FDFC: E8 39 16 C8 00                 -  call Minecraft.Windows.exe+18D143A
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1544</ID>
+          <Description>"Freecam"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-25
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(FREECAM,Minecraft.Windows.exe,41 80 B8 31 03 00 00 00) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+C4CFBB)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //cmp byte ptr [r8+00000331],00
+  nop
+  jmp return
+
+FREECAM:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(FREECAM)
+
+[DISABLE]
+
+FREECAM:
+  db 41 80 B8 31 03 00 00 00
+
+unregistersymbol(FREECAM)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Minecraft.Windows.exe"+C4CFBB
+
+"Minecraft.Windows.exe"+C4CFA9: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFAA: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFAB: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFAC: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFAD: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFAE: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFAF: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFB0: 48 8B 41 10              -  mov rax,[rcx+10]
+"Minecraft.Windows.exe"+C4CFB4: 4C 8B 09                 -  mov r9,[rcx]
+"Minecraft.Windows.exe"+C4CFB7: 4C 8B 40 18              -  mov r8,[rax+18]
+// ---------- INJECTING HERE ----------
+"Minecraft.Windows.exe"+C4CFBB: 41 80 B8 31 03 00 00 00  -  cmp byte ptr [r8+00000331],00
+// ---------- DONE INJECTING  ----------
+"Minecraft.Windows.exe"+C4CFC3: 74 04                    -  je Minecraft.Windows.exe+C4CFC9
+"Minecraft.Windows.exe"+C4CFC5: 49 FF 61 30              -  jmp qword ptr [r9+30]
+"Minecraft.Windows.exe"+C4CFC9: 49 FF 61 10              -  jmp qword ptr [r9+10]
+"Minecraft.Windows.exe"+C4CFCD: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFCE: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFCF: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFD0: 48 8B 49 10              -  mov rcx,[rcx+10]
+"Minecraft.Windows.exe"+C4CFD4: E9 27 2F 00 00           -  jmp Minecraft.Windows.exe+C4FF00
+"Minecraft.Windows.exe"+C4CFD9: CC                       -  int 3 
+"Minecraft.Windows.exe"+C4CFDA: CC                       -  int 3 
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1548</ID>
+          <Description>"Clip Cam"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Minecraft.Windows.exe
+  Version: 
+  Date   : 2019-07-26
+  Author : EchoHackCmd
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(CLIPCAM,Minecraft.Windows.exe,F3 0F 11 8B F0 0F 00 00 FF) // should be unique
+alloc(newmem,$1000,"Minecraft.Windows.exe"+87C65B)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //movss [rbx+00000FF0],xmm1
+  nop
+  jmp return
+
+CLIPCAM:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(CLIPCAM)
+
+[DISABLE]
+
+CLIPCAM:
+  db F3 0F 11 8B F0 0F 00 00
+
+unregistersymbol(CLIPCAM)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Minecraft.Windows.exe"+87C65B
+
+"Minecraft.Windows.exe"+87C632: F3 0F 5C 45 E4              -  subss xmm0,[rbp-1C]
+"Minecraft.Windows.exe"+87C637: F3 0F 59 C9                 -  mulss xmm1,xmm1
+"Minecraft.Windows.exe"+87C63B: F3 0F 59 D2                 -  mulss xmm2,xmm2
+"Minecraft.Windows.exe"+87C63F: F3 0F 59 C0                 -  mulss xmm0,xmm0
+"Minecraft.Windows.exe"+87C643: F3 0F 58 D1                 -  addss xmm2,xmm1
+"Minecraft.Windows.exe"+87C647: 0F 57 C9                    -  xorps xmm1,xmm1
+"Minecraft.Windows.exe"+87C64A: F3 0F 58 D0                 -  addss xmm2,xmm0
+"Minecraft.Windows.exe"+87C64E: F3 0F 51 CA                 -  sqrtss xmm1,xmm2
+"Minecraft.Windows.exe"+87C652: 0F 2F 8B F0 0F 00 00        -  comiss xmm1,[rbx+00000FF0]
+"Minecraft.Windows.exe"+87C659: 73 08                       -  jae Minecraft.Windows.exe+87C663
+// ---------- INJECTING HERE ----------
+"Minecraft.Windows.exe"+87C65B: F3 0F 11 8B F0 0F 00 00     -  movss [rbx+00000FF0],xmm1
+// ---------- DONE INJECTING  ----------
+"Minecraft.Windows.exe"+87C663: FF C7                       -  inc edi
+"Minecraft.Windows.exe"+87C665: 83 FF 08                    -  cmp edi,08
+"Minecraft.Windows.exe"+87C668: 0F 8C C2 FE FF FF           -  jl Minecraft.Windows.exe+87C530
+"Minecraft.Windows.exe"+87C66E: F3 0F 10 85 60 01 00 00     -  movss xmm0,[rbp+00000160]
+"Minecraft.Windows.exe"+87C676: 48 8D 54 24 60              -  lea rdx,[rsp+60]
+"Minecraft.Windows.exe"+87C67B: 4C 89 64 24 28              -  mov [rsp+28],r12
+"Minecraft.Windows.exe"+87C680: 4D 8B CD                    -  mov r9,r13
+"Minecraft.Windows.exe"+87C683: 4D 8B C6                    -  mov r8,r14
+"Minecraft.Windows.exe"+87C686: F3 0F 11 44 24 20           -  movss [rsp+20],xmm0
+"Minecraft.Windows.exe"+87C68C: 48 8B CB                    -  mov rcx,rbx
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1526</ID>
+      <Description>"Debugging"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>33</ID>
+          <Description>"Local Player"</Description>
+          <LastState Value="693023312" RealAddress="25B0EAD2CD8"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1522</ID>
+          <Description>"Velocity: X"</Description>
+          <LastState Value="-1.401298464E-45" RealAddress="25B294EC05C"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>E0C</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1523</ID>
+          <Description>"Velocity: Y"</Description>
+          <LastState Value="-0.07840000093" RealAddress="25B294EC060"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>E10</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1524</ID>
+          <Description>"Velocity: Z"</Description>
+          <LastState Value="-1.401298464E-45" RealAddress="25B294EC064"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>E14</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1539</ID>
+          <Description>"Pitch"</Description>
+          <LastState Value="25.09454346" RealAddress="25B294EB330"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>E0</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1540</ID>
+          <Description>"Yaw"</Description>
+          <LastState Value="112.4624939" RealAddress="25B294EB334"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>E4</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1541</ID>
+          <Description>"X"</Description>
+          <LastState Value="-27.72537613" RealAddress="25B294EB350"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>100</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1542</ID>
+          <Description>"Y"</Description>
+          <LastState Value="5.620009899" RealAddress="25B294EB354"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>104</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1543</ID>
+          <Description>"Z"</Description>
+          <LastState Value="-23.10173035" RealAddress="25B294EB358"/>
+          <VariableType>Float</VariableType>
+          <Address>"Minecraft.Windows.exe"+02991E18</Address>
+          <Offsets>
+            <Offset>108</Offset>
+            <Offset>E0</Offset>
+            <Offset>0</Offset>
+            <Offset>128</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Structures StructVersion="2">
+    <Structure Name="unnamed structure" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="0" Vartype="Pointer" Bytesize="8" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="16" Vartype="4 Bytes" Bytesize="4" RLECount="52" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="224" Vartype="Float" Bytesize="4" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="240" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="252" Vartype="Float" Bytesize="4" RLECount="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="272" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="276" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="288" Vartype="Pointer" Bytesize="8" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="312" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="316" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="320" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="328" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="336" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="344" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="348" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="360" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="364" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="368" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="376" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="380" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="388" Vartype="Float" Bytesize="4" RLECount="7" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="416" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="424" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="432" Vartype="4 Bytes" Bytesize="4" RLECount="6" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="456" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="464" Vartype="4 Bytes" Bytesize="4" RLECount="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="496" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="504" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="508" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="516" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="520" Vartype="Float" Bytesize="4" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="532" Vartype="4 Bytes" Bytesize="4" RLECount="6" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="556" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="560" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="568" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="572" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="592" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="600" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="604" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="612" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="616" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="620" Vartype="4 Bytes" Bytesize="4" RLECount="11" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="664" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="676" Vartype="4 Bytes" Bytesize="4" RLECount="19" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="752" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="756" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="764" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="768" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="776" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="796" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="800" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="804" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="805" Vartype="String" Bytesize="6" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="811" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="812" Vartype="4 Bytes" Bytesize="4" RLECount="7" DisplayMethod="Hexadecimal"/>
+        <Element Offset="840" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="841" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="845" Vartype="Byte" Bytesize="1" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="848" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="856" Vartype="4 Bytes" Bytesize="4" RLECount="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="872" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="876" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="884" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="888" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="892" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="896" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="908" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="912" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="920" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="928" Vartype="4 Bytes" Bytesize="4" RLECount="11" DisplayMethod="Hexadecimal"/>
+        <Element Offset="972" Vartype="Byte" Bytesize="1" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="975" Vartype="2 Bytes" Bytesize="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="977" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="979" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="983" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="984" Vartype="4 Bytes" Bytesize="4" RLECount="12" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1032" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1036" Vartype="4 Bytes" Bytesize="4" RLECount="7" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1064" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1068" Vartype="4 Bytes" Bytesize="4" RLECount="7" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1096" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1100" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1104" Vartype="4 Bytes" Bytesize="4" RLECount="9" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1140" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1144" Vartype="4 Bytes" Bytesize="4" RLECount="11" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1188" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1192" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1196" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1200" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1208" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1212" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1220" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1221" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1225" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1226" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1230" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1232" Vartype="4 Bytes" Bytesize="4" RLECount="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1248" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1252" Vartype="4 Bytes" Bytesize="4" RLECount="15" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1312" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1313" Vartype="String" Bytesize="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1318" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1320" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1324" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1344" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1348" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1356" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1360" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1364" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1368" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1372" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1376" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1396" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1400" Vartype="4 Bytes" Bytesize="4" RLECount="12" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1448" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1452" Vartype="4 Bytes" Bytesize="4" RLECount="8" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1484" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1492" Vartype="4 Bytes" Bytesize="4" RLECount="13" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1544" Vartype="Byte" Bytesize="1" RLECount="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1549" Vartype="String" Bytesize="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1554" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1556" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1564" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1568" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1580" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1584" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1588" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1592" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1596" Vartype="4 Bytes" Bytesize="4" RLECount="14" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1652" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1656" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1664" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1668" Vartype="4 Bytes" Bytesize="4" RLECount="7" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1696" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1700" Vartype="4 Bytes" Bytesize="4" RLECount="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1716" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1720" Vartype="4 Bytes" Bytesize="4" RLECount="7" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1748" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1752" Vartype="4 Bytes" Bytesize="4" RLECount="6" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1776" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1780" Vartype="4 Bytes" Bytesize="4" RLECount="6" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1804" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1808" Vartype="4 Bytes" Bytesize="4" RLECount="9" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1844" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1848" Vartype="4 Bytes" Bytesize="4" RLECount="10" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1888" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1890" Vartype="2 Bytes" Bytesize="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1892" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1904" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1905" Vartype="String" Bytesize="7" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1912" Vartype="4 Bytes" Bytesize="4" RLECount="6" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1936" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1940" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1944" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1948" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="1956" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1960" Vartype="4 Bytes" Bytesize="4" RLECount="12" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2008" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2012" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2032" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2036" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2048" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2050" Vartype="2 Bytes" Bytesize="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2052" Vartype="Byte" Bytesize="1" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2055" Vartype="2 Bytes" Bytesize="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2057" Vartype="Byte" Bytesize="1" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2060" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2068" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2072" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2076" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2096" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2100" Vartype="4 Bytes" Bytesize="4" RLECount="14" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2156" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2160" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2164" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2168" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2180" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2188" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2196" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2200" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2204" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2208" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2212" Vartype="4 Bytes" Bytesize="4" RLECount="17" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2280" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2284" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2304" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2308" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2328" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2332" Vartype="4 Bytes" Bytesize="4" RLECount="13" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2384" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2388" Vartype="4 Bytes" Bytesize="4" RLECount="6" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2412" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2420" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2428" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2432" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2444" Vartype="String" Bytesize="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2449" Vartype="Byte" Bytesize="1" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2452" Vartype="4 Bytes" Bytesize="4" RLECount="14" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2508" Vartype="Byte" Bytesize="1" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2512" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2516" Vartype="4 Bytes" Bytesize="4" RLECount="8" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2548" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2552" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2572" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2576" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2596" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2600" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2604" Vartype="4 Bytes" Bytesize="4" RLECount="10" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2644" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2648" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2660" Vartype="Float" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2668" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2680" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2681" Vartype="String" Bytesize="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2686" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2688" Vartype="4 Bytes" Bytesize="4" RLECount="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2704" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2708" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2712" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2716" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2720" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2724" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2732" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2736" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2744" Vartype="String" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2748" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2752" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2772" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2776" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Hexadecimal"/>
+        <Element Offset="2788" Vartype="4 Bytes" Bytesize="4" RLECount="123" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3280" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3288" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="3296" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3300" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3320" Vartype="Pointer" Bytesize="8" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3344" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3352" Vartype="String" Bytesize="10" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3362" Vartype="Byte" Bytesize="1" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3364" Vartype="4 Bytes" Bytesize="4" RLECount="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3384" Vartype="String" Bytesize="7" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3391" Vartype="Byte" Bytesize="1" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3392" Vartype="4 Bytes" Bytesize="4" RLECount="14" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3448" Vartype="Pointer" Bytesize="8" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3464" Vartype="4 Bytes" Bytesize="4" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3480" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Hexadecimal"/>
+        <Element Offset="3488" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3496" Vartype="4 Bytes" Bytesize="4" RLECount="6" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3520" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3528" Vartype="4 Bytes" Bytesize="4" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3544" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3552" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3556" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3564" Vartype="Float" Bytesize="4" RLECount="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3584" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3592" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3596" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3600" Vartype="Float" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3604" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3612" Vartype="Float" Bytesize="4" RLECount="5" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3632" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3640" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3648" Vartype="4 Bytes" Bytesize="4" RLECount="19" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3724" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3732" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3736" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3744" Vartype="4 Bytes" Bytesize="4" RLECount="16" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3808" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3816" Vartype="4 Bytes" Bytesize="4" RLECount="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3848" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3856" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3860" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3868" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3872" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3880" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3888" Vartype="Pointer" Bytesize="8" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3912" Vartype="4 Bytes" Bytesize="4" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3924" Vartype="Double" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3932" Vartype="4 Bytes" Bytesize="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3936" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3944" Vartype="4 Bytes" Bytesize="4" RLECount="2" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3952" Vartype="Pointer" Bytesize="8" RLECount="3" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3976" Vartype="4 Bytes" Bytesize="4" RLECount="4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3992" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="4000" Vartype="4 Bytes" Bytesize="4" RLECount="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="4032" Vartype="Pointer" Bytesize="8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="4040" Vartype="4 Bytes" Bytesize="4" RLECount="10" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="4080" Vartype="Pointer" Bytesize="8" RLECount="2" DisplayMethod="Unsigned Integer"/>
+      </Elements>
+    </Structure>
+  </Structures>
+</CheatTable>
